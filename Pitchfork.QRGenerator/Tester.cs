@@ -12,12 +12,12 @@ namespace Pitchfork.QRGenerator
     internal static class Tester
     {
         private static readonly Encoding _iso8859Encoding = Encoding.GetEncoding("ISO-8859-1");
-        public static Image GetQRCode(string input, ErrorCorrectionLevel level = ErrorCorrectionLevel.M)
+        public static Image GetQRCode(string input, ErrorCorrectionLevel level = ErrorCorrectionLevel.M,  int bordSize = 0, int pixelSize = 6)
         {
-            return GetQRCode(_iso8859Encoding.GetBytes(input), level);
+            return GetQRCode(_iso8859Encoding.GetBytes(input), level, bordSize, pixelSize);
         }
 
-        public static Image GetQRCode(byte[] data, ErrorCorrectionLevel level = ErrorCorrectionLevel.M)
+        public static Image GetQRCode(byte[] data, ErrorCorrectionLevel level = ErrorCorrectionLevel.M,  int bordSize = 0, int pixelSize = 6)
         {
             bool requires16BitLength = false;
             int maxBytesInVersion9Code = QRErrorCorrections.GetQRVersionInfo(9).GetCorrectionInfo(level).TotalDataBytes;
@@ -51,7 +51,7 @@ namespace Pitchfork.QRGenerator
             template.PopulateData(finalMessageSequence);
             template.Complete();
 
-            return template.ToImage();
+            return template.ToImage(bordSize, pixelSize);
         }
 
         private sealed class StreamHelper
