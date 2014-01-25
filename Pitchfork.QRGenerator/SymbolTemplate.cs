@@ -251,12 +251,10 @@ namespace Pitchfork.QRGenerator
             ApplyFormatInformationEncodedBits(formatInformationEncodedBits);
         }
 
-        public Image ToImage()
+        public Image ToImage(int borderSize = 0, int pixelSize = 6)
         {
-            const int PIXELSIZE = 6;
-            const int BORDER = 4;
-
-            int pixelWidth = (Width + BORDER * 2) * PIXELSIZE;
+            
+            int pixelWidth = (Width + borderSize * 2) * pixelSize;
             Bitmap bmp = new Bitmap(pixelWidth, pixelWidth);
 
             using (var graphics = Graphics.FromImage(bmp))
@@ -271,7 +269,7 @@ namespace Pitchfork.QRGenerator
                     {
                         if (_modules.IsDark(row,col))
                         {
-                            graphics.FillRectangle(Brushes.Black, (col + BORDER) * PIXELSIZE, (row + BORDER) * PIXELSIZE, PIXELSIZE, PIXELSIZE);
+                            graphics.FillRectangle(Brushes.Black, (col + borderSize) * pixelSize, (row + borderSize) * pixelSize, pixelSize, pixelSize);
                         }
                     }
                 }

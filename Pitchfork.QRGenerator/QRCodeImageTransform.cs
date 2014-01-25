@@ -14,17 +14,26 @@ namespace Pitchfork.QRGenerator
         /// <param name="input">The textual data to turn into a QR code image. The text must contain only
         /// printable US-ASCII characters.</param>
         /// <param name="errorCorrectionLevel">The level of data redundancy to include in the generated
+        /// <param name="bordSize">The size of padding in the qr image</param>
+        /// <param name="pixelSize">The size of pixels in the qr image</param>
         /// image. The default level is 'M' (approximately 15% redundancy).</param>
         /// <returns>An Image corresponding to the generated QR code.</returns>
-        public static Image GetQRCode(string input, ErrorCorrectionLevel errorCorrectionLevel = ErrorCorrectionLevel.M)
+        public static Image GetQRCode(string input, ErrorCorrectionLevel errorCorrectionLevel = ErrorCorrectionLevel.M, int bordSize = 0, int pixelSize = 6)
         {
             ValidateInputString(input);
             if (errorCorrectionLevel < ErrorCorrectionLevel.L || errorCorrectionLevel > ErrorCorrectionLevel.H)
             {
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");
             }
-
-            return Tester.GetQRCode(input);
+            if (bordSize < 0)
+            {
+                throw new ArgumentOutOfRangeException("bordSize");
+            }
+            if (pixelSize <= 0) 
+            {
+                throw new ArgumentOutOfRangeException("pixelSize");
+            }
+            return Tester.GetQRCode(input, errorCorrectionLevel, bordSize, pixelSize);
         }
 
         private static void ValidateInputString(string input)
