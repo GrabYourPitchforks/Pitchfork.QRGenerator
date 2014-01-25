@@ -25,6 +25,10 @@ namespace Pitchfork.QRGenerator
             {
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");
             }
+            if (bordSize < 0)
+            {
+                throw new ArgumentOutOfRangeException("bordSize");
+            }
             if (pixelSize <= 0) 
             {
                 throw new ArgumentOutOfRangeException("pixelSize");
