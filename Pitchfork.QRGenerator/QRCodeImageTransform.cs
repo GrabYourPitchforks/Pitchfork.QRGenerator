@@ -29,7 +29,7 @@ namespace Pitchfork.QRGenerator
             {
                 throw new ArgumentOutOfRangeException("pixelSize");
             }
-            return Tester.GetQRCode(input,bordSize, pixelSize);
+            return Tester.GetQRCode(input, errorCorrectionLevel, bordSize, pixelSize);
         }
 
         private static void ValidateInputString(string input)
